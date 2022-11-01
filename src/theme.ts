@@ -32,7 +32,8 @@ const themeOptions: ThemeOptions = {
     },
   },
   typography: {
-    fontFamily: '"Raleway", "Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily:
+      '"Raleway", "Roboto", "Helvetica", "Arial", sans-serif, "Inter"',
     h1: {
       fontSize: "2rem",
       fontWeight: 600,
