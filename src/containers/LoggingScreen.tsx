@@ -1,10 +1,27 @@
-import { FC } from "react";
 import { PlaylistAddCheckRounded } from "@mui/icons-material";
-import { Button, Grid, Stack, TextField, Typography } from "@mui/material";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
+import { Form, Formik } from "formik";
+import { FC } from "react";
+import * as yup from "yup";
+
 import logo from "assets/img/hubLogo.svg";
+import FormikTextField from "components/forms/FormikTextField";
 
 export const LoggingScreen: FC = () => {
+  const initialValues = {
+    token: "",
+  };
+
+  const schema = yup.object({
+    token: yup.string().required(),
+  });
+
+  const handleSubmit = (values: any, { resetForm }: { resetForm: any }) => {
+    console.log(values);
+    resetForm();
+  };
+
   return (
     <Box>
       <Container
@@ -22,7 +39,7 @@ export const LoggingScreen: FC = () => {
           },
         }}
       >
-        <img src={logo} />
+        <img src={logo} alt="logo" />
 
         <Box>
           <Typography
@@ -109,71 +126,83 @@ export const LoggingScreen: FC = () => {
             </Box>
           </Stack>
 
-          <Grid container alignItems="center">
-            <Grid item xs={12} md={12}>
-              <Typography
-                fontWeight="bold"
-                mb="9px"
-                sx={{
-                  fontSize: "17px",
+          <Formik
+            initialValues={initialValues}
+            validationSchema={schema}
+            onSubmit={handleSubmit}
+            enableReinitialize
+            handleSubmit
+          >
+            <Form>
+              <Grid container>
+                <Grid item xs={12} md={12}>
+                  <Typography
+                    fontWeight="bold"
+                    mb="9px"
+                    sx={{
+                      fontSize: "17px",
 
-                  "@media (max-width: 768px)": {
-                    fontSize: "15px",
-                    marginBottom: "0px",
-                  },
-                }}
-              >
-                Access Token: *
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={9}>
-              <TextField
-                placeholder="***-***-*******-****-****-****-************"
-                type="password"
-                fullWidth
-                inputProps={{
-                  style: {
-                    fontSize: "17px",
-                    color: "#A8A8A8",
-                    padding: "15px 21px",
-                    outline: "none",
-                    border: "2px solid #E1E6EE",
-                    borderRadius: "3px",
-                  },
-                }}
-              ></TextField>
-            </Grid>
-            <Grid item xs={12} md={3} sx={{ verticalAlign: "center" }}>
-              <Button
-                sx={{
-                  backgroundColor: "#EF8162",
-                  padding: "15px 28px",
-                  display: "inline-block",
-                  marginLeft: "21px",
-                  marginTop: "10px",
-                  color: "#FFF",
-                  textTransform: "none",
-                  textDecoration: "none",
-                  fontSize: "16px",
-                  fontWeight: "700",
+                      "@media (max-width: 768px)": {
+                        fontSize: "15px",
+                        marginBottom: "0px",
+                      },
+                    }}
+                  >
+                    Access Token: *
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} md={9}>
+                  <FormikTextField
+                    name="token"
+                    placeholder="***-***-*******-****-****-****-************"
+                    type="password"
+                    fullWidth
+                    inputProps={{
+                      style: {
+                        fontSize: "17px",
+                        color: "#A8A8A8",
+                        padding: "15px 21px",
+                        outline: "none",
+                        border: "2px solid #E1E6EE",
+                        borderRadius: "3px",
+                      },
+                    }}
+                  ></FormikTextField>
+                </Grid>
+                <Grid item xs={12} md={3}>
+                  <Button
+                    type="submit"
+                    sx={{
+                      backgroundColor: "#EF8162",
+                      padding: "14px 28px",
+                      display: "inline-block",
+                      marginLeft: "21px",
+                      marginTop: "10px",
+                      color: "#FFF",
+                      textTransform: "none",
+                      textDecoration: "none",
+                      fontSize: "16px",
+                      fontWeight: "700",
 
-                  "&:hover": {
-                    backgroundColor: "#ee8d73",
-                    cursor: "pointer",
-                  },
+                      "&:hover": {
+                        backgroundColor: "#ee8d73",
+                        cursor: "pointer",
+                      },
 
-                  "@media (max-width: 768px)": {
-                    fontSize: "15px",
-                    marginTop: "10px",
-                    marginLeft: "0px",
-                    marginBottom: "10px",
-                  },
-                }}
-              >
-                Grant access
-              </Button>
-            </Grid>
-          </Grid>
+                      "@media (max-width: 768px)": {
+                        fontSize: "15px",
+                        marginTop: "10px",
+                        marginLeft: "0px",
+                        marginBottom: "10px",
+                      },
+                    }}
+                  >
+                    Grant access
+                  </Button>
+                </Grid>
+              </Grid>
+            </Form>
+          </Formik>
         </Box>
       </Container>
     </Box>

@@ -64,6 +64,14 @@ module.exports = {
         },
       },
     ],
+
+    // eslint-disable-next-line no-dupe-keys
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
   },
   settings: {
     "import/resolver": {
